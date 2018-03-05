@@ -20,9 +20,13 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+# sys.path.insert(0, os.path.abspath('..')) # only import from installed version using pip install -e
 
 import {{ cookiecutter.project_slug }}
+
+# import guzzle_sphinx_theme
+import sphinx_rtd_theme
+# from recommonmark.parser import CommonMarkParser # optional support for MD files in docs
 
 # -- General configuration ---------------------------------------------
 
@@ -32,7 +36,27 @@ import {{ cookiecutter.project_slug }}
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.viewcode',
+              'sphinx.ext.coverage',
+              'sphinxcontrib.napoleon',
+              'sphinx.ext.mathjax',
+              'sphinx.ext.githubpages',
+              #'sphinx_autodoc_annotation',
+              #'sphinx_autodoc_typehints',
+              'sphinx.ext.autosummary',
+              #'guzzle_sphinx_theme',
+              'sphinx_automodapi.automodapi',
+              'sphinx.ext.intersphinx',
+              'sphinx_automodapi.smart_resolver',
+              'sphinxcontrib.fulltoc',
+              ]
+
+intersphinx_mapping = {'python': ('http://docs.python.org/3', None),
+                       'numpy': ('http://docs.scipy.org/doc/numpy/', None),
+                       'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
+                       # 'matplotlib': ('http://matplotlib.sourceforge.net/', None),
+                       }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -84,7 +108,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+# html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
@@ -97,6 +121,21 @@ html_theme = 'alabaster'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_theme = "sphinx_rtd_theme"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+html_theme_options = {
+    'typekit_id': 'hiw1hhg',
+    #'canonical_url':
+    #'analytics_id':
+    'collapse_navigation': True,
+    'sticky_navigation': False,
+    'navigation_depth': 4,
+    'includehidden': True,
+    #'logo_only':
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+}
 
 # -- Options for HTMLHelp output ---------------------------------------
 
@@ -109,11 +148,11 @@ htmlhelp_basename = '{{ cookiecutter.project_slug }}doc'
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
+    'papersize': 'a4paper',
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
+    'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
     #
@@ -121,7 +160,7 @@ latex_elements = {
 
     # Latex figure (float) alignment
     #
-    # 'figure_align': 'htbp',
+    'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -159,5 +198,12 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+default_role = 'any'
 
+imgmath_image_format = 'png'
+
+
+
+# If false, no module index is generated.
+html_domain_indices = False
 

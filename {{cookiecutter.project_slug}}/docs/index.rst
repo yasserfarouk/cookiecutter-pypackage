@@ -8,7 +8,8 @@ Welcome to {{ cookiecutter.project_name }}'s documentation!
    readme
    installation
    usage
-   modules
+   references
+   api
    contributing
    {% if cookiecutter.create_author_file == 'y' -%}authors
    {% endif -%}history
